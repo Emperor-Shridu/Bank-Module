@@ -21,6 +21,16 @@ def clear_screen():
     print("\n"*100)
 
 
+def ask_to_continue():
+    """asks the user to continue"""
+    print("\n\n Done!! Press enter to continue or type anything with enter to exit")
+    h_line()
+    if input() == "":
+        clear_screen()
+    else:
+        oc.exit_option()
+
+
 def first_menu():
     """
     Asks the user to sign up or login to continue
@@ -30,7 +40,7 @@ def first_menu():
 
     while True:
         print("Welcome! You must log in or create a new account to continue.")
-        print("1 => add account \n2 => login")
+        print("1 => Add account \n2 => Login")
         option_chosen = int(input("\n"*3+"please type the option no:"))
 
         if option_chosen == 1:

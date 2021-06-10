@@ -11,13 +11,18 @@ This while loop runs till user exits the program.
 Here starts the main logic
 """
 
+menu.clear_screen()
+menu.h_line()
+
+# This returns the data of the user
+user = menu.first_menu()
+menu.ask_to_continue()
+
 while True:
 
     menu.clear_screen()
     menu.h_line()
-    
-    # This returns the data of the user
-    user = menu.first_menu()
+
 
     # This returns the option selected from menu and its validity
     option_selected, validity = menu.option_menu()
@@ -48,10 +53,4 @@ while True:
             quit()
 
 
-    print("\n\n Done!! Press enter to continue or type anything with enter to exit")
-    menu.h_line()
-
-    if input() == "":
-        continue
-    else:
-        break
+    menu.ask_to_continue()

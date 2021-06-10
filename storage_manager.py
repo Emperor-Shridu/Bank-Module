@@ -27,7 +27,7 @@ def ispresent(accNo, password):
     """
     with open("storage.txt", "r") as f:
         text = f.read()
-        start_index = text.find("{'Acc no': "+f"'{accNo}'")
+        start_index = text.find("{'Acc no': "+ str(accNo))
 
         if start_index == -1:
             print("invalid id")
@@ -56,10 +56,31 @@ def find(accNo, password):
         with open("storage.txt", "r") as f:
 
             text = f.read()
-            start_index = text.find("{'Acc no': "+f"'{accNo}'")
+            start_index = text.find("{'Acc no': "+ str(accNo))
             end_index = text.find("}", start_index)
             user = eval(text[start_index: end_index+1])
             return user
 
     else:
         print("user not registered")
+
+
+def ispresent_by_accNo(accNo):
+    """ 
+    This checks if id is present in database.
+    
+    :param int accNo: account number of that account
+
+    :return bool: 0: id not present
+                  1: id present
+    """
+
+    with open("storage.txt", "r") as f:
+        text = f.read()
+        start_index = text.find("{'Acc no': "+ str(accNo))
+
+        if start_index == -1:
+            print("invalid id")
+            return 0
+        else:
+            return 1

@@ -7,7 +7,7 @@ from random import randrange
 import storage_manager
 
 #constants
-FIELDS = ["Acc no", "Acc type", "Name", "Balace"]
+FIELDS = ["Acc no", "Acc Type", "Name", "Balance"]
 TOTAL_FIELDS = len(FIELDS)
 
 
@@ -20,26 +20,27 @@ def gather_data():
 
     print("\n"*2+"You have to fill the following form to add your account :")
 
-    account_details = {}
-    for option_no in range(TOTAL_FIELDS):
-        print(f"\n\n{ option_no + 1 } => { FIELDS[option_no] }")
-        print(f"Enter your {FIELDS[option_no]} below:")
-        data = input("=>")
-        account_details[FIELDS[option_no]] = data
 
+    name = input("Enter the name of the owner of account:")
+    acc_type = input("Enter the type of account you want to create(savings\\business): ")
+    balance = int(input("Enter the balance you want to start with:"))
+    account_no = randrange(9999999, 1000000000)
     password = randrange(99999, 1000000)
-    account_details["password"] = password
+    # validating uniqueness
+    try:
+        while storage_manager.ispresent_by_accNo(account_no):
+            randrange(9999999, 1000000000)
+    except FileNotFoundError:
+        pass
+    #file not existing means no record is created so uniqueness already verified
 
+
+    account_details = {"Acc no":account_no, "Acc Type":acc_type, "Name":name, "Balance":balance, "password":password}
     storage_manager.store(account_details)
 
 
     print("\n"*2+"Congratulations your account has been created\n\
-        remember your password:", password)
-
-    if int(input("Press 1 to view your details:")) == 1:
-        data = storage_manager.find(account_details['Acc no'], account_details['password'])
-        for x in range(TOTAL_FIELDS):
-            print(f"Your {FIELDS[x]} is :{data[FIELDS[x]]}")
+        remember your password:", password, "\n \tAnd Acc Number:", account_no)
 
     return account_details
 
@@ -71,7 +72,7 @@ def deposit(user):
     """
 
     amount_submitted = int(input("Enter the ammount you want to deposit:"))
-    user["Balance"] = str(amount_submitted + int(user["Balance"]))
+    user["Balance"] += amount_submitted
     print("Bravo, you got the amount in the safe hands.")
         
 
@@ -96,7 +97,7 @@ def withdraw(user):
     amount = int(input("Enter the ammount you want to withdraw:"))
 
     if amount <= int(user["Balance"]):
-        user["Balance"] = str(-amount + int(user["Balance"]))
+        user["Balance"] -= amount
         print("Bravo, you got the amount in your hands.")
 
     else:
