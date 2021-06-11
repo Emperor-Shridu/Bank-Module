@@ -7,7 +7,7 @@ import option_commands as oc
 import storage_manager
 
 #Constants
-MENU_OPTIONS = ["Add account", "Diposit", "Print balance statement", "Withdrawl", "Exit"]
+MENU_OPTIONS = ["Add account", "Diposit", "Print balance statement", "Withdrawl", "Delete Account", "Exit"]
 TOTAL_OPTIONS = len(MENU_OPTIONS)
 
 
@@ -84,8 +84,8 @@ def option_menu():
 
     option_chosen = int(input("\n"*3+"please type the option no:"))
 
-    if option_chosen > 5 or option_chosen <1:
-        option_chosen = 5
+    if option_chosen > 6 or option_chosen <1:
+        option_chosen = 6
         validity = 0
 
     return option_chosen, validity

@@ -31,7 +31,7 @@ while True:
 
     # Calling the function according to the option selected
     if validity == 0:
-        option_selected = 5
+        option_selected = 6
 
     if option_selected == 1:
         oc.gather_data()
@@ -46,6 +46,13 @@ while True:
         oc.withdraw(user)
 
     elif option_selected == 5:
+        oc.delete_account(user)
+        # signing up required again to prevent troubles in program
+        # there is probably a better way to fix it
+        menu.ask_to_continue()
+        user = menu.first_menu()
+
+    elif option_selected == 6:
         value = oc.exit_option()
         if value:
             continue

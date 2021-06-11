@@ -42,6 +42,11 @@ def gather_data():
     print("\n"*2+"Congratulations your account has been created\n\
         remember your password:", password, "\n \tAnd Acc Number:", account_no)
 
+    if int(input("\n\n\n\nPress 1 to view your details and 0 to skip:")) == 1:
+        data = storage_manager.find(account_details['Acc no'], account_details['password'])
+        for x in range(TOTAL_FIELDS):
+            print(f"Your {FIELDS[x]} is :{data[FIELDS[x]]}")
+
     return account_details
 
 
@@ -102,3 +107,17 @@ def withdraw(user):
 
     else:
         print("Not enough money to continue")
+
+
+def delete_account(user):
+    """
+    Deletes the user account permanently
+
+    :param dict user: The dictionary containing the data of the user
+    """
+    accNo = user["Acc no"]
+    password = user["password"]
+    if storage_manager.ispresent_by_accNo(accNo):
+        storage_manager.delete_record(accNo, password)
+    else:
+        print("Data not present/ Already deleted")

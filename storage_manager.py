@@ -84,3 +84,33 @@ def ispresent_by_accNo(accNo):
             return 0
         else:
             return 1
+
+
+def delete_record(accNo, password):
+    """ 
+    This deletes the user data from database.
+    
+    :param int accNo: account number of that account
+    :param int password: password of that account
+
+    """
+
+    #source 1 : https://www.geeksforgeeks.org/how-to-delete-data-from-file-in-python/
+    #source 2 : https://stackoverflow.com/questions/7356043/how-to-delete-specific-strings-from-a-file
+
+    # better methods are welcomed, until then:
+    with open("storage.txt", "r") as f:
+
+        all_lines = f.readlines()
+        # + "\n" took half an hour
+        delete_line = str(find(accNo, password)) + "\n"
+
+    with open("storage.txt", "w") as f:
+
+        f.truncate()
+        
+        for line in all_lines:
+            if line == delete_line:
+                continue
+            else:
+                f.write(line)
